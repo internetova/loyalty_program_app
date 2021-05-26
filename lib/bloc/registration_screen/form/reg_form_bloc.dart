@@ -5,9 +5,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:loyalty_program_app/bloc/registration_screen/fields/fields_reg_cubit.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
+import 'package:loyalty_program_app/data/repository/user_repository.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:loyalty_program_app/ui/screens/enter_screen.dart';
 import 'package:loyalty_program_app/ui/widgets/inform_dialog_widget.dart';
+import 'package:loyalty_program_app/utils/other_utils.dart';
 
 part 'reg_form_event.dart';
 
@@ -15,7 +17,9 @@ part 'reg_form_state.dart';
 
 /// блок для формы регистрации
 class RegFormBloc extends Bloc<RegFormEvent, RegFormState> {
-  RegFormBloc() : super(RegFormInitial());
+  final UserRepository _userRepository;
+
+  RegFormBloc(this._userRepository) : super(RegFormInitial());
 
   @override
   Stream<RegFormState> mapEventToState(
@@ -25,9 +29,6 @@ class RegFormBloc extends Bloc<RegFormEvent, RegFormState> {
       yield RegFormSubmitting();
 
       try {
-        /// todo сделать лоадер, потом удалить задержку
-        await Future.delayed(Duration(seconds: 1));
-
         /// сюда сохраним данные полей формы
         User user = User(
           email: event.fieldsState.fieldEmail,
@@ -35,10 +36,11 @@ class RegFormBloc extends Bloc<RegFormEvent, RegFormState> {
           firstName: event.fieldsState.fieldFirstName,
           lastName: event.fieldsState.fieldLastName,
           patronymic: event.fieldsState.fieldPatronymic,
+          cardNumber: OtherUtils.getRandom(100000, 1000000),
         );
 
-        /// todo записать в базу данных
-        print(user);
+        /// записать в базу данных
+        await _userRepository.addUser(user);
 
         /// подтверждаем сохранение данных
         showDialog(

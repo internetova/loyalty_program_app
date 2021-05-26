@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:loyalty_program_app/utils/utils_field_validator.dart';
+import 'package:loyalty_program_app/utils/field_validator_utils.dart';
 
 part 'fields_enter_state.dart';
 

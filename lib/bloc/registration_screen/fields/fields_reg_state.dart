@@ -47,32 +47,32 @@ class FieldsRegState extends Equatable {
   }
 
   String? get fieldEmailIsValid =>
-      UtilsFieldValidator.validateEmail(fieldEmail);
+      FieldValidatorUtils.validateEmail(fieldEmail);
 
   String? get fieldFirstNameIsValid =>
-      UtilsFieldValidator.validateText(fieldFirstName);
+      FieldValidatorUtils.validateText(fieldFirstName);
 
   String? get fieldLastNameIsValid =>
-      UtilsFieldValidator.validateText(fieldLastName);
+      FieldValidatorUtils.validateText(fieldLastName);
 
   String? get fieldPatronymicIsValid =>
-      UtilsFieldValidator.validateText(fieldPatronymic);
+      FieldValidatorUtils.validateText(fieldPatronymic);
 
   String? get fieldPasswordIsValid =>
-      UtilsFieldValidator.validatePassword(fieldPassword);
+      FieldValidatorUtils.validatePassword(fieldPassword);
 
   String? get fieldConfirmPasswordIsValid =>
-      UtilsFieldValidator.validateConfirmPassword(
+      FieldValidatorUtils.validateConfirmPassword(
           fieldConfirmPassword, fieldPassword);
 
   /// валидность всей формы
   bool get isValid =>
-      UtilsFieldValidator.validateEmail(fieldEmail) == null &&
-      UtilsFieldValidator.validateText(fieldFirstName) == null &&
-      UtilsFieldValidator.validateText(fieldLastName) == null &&
-      UtilsFieldValidator.validateText(fieldPatronymic) == null &&
-      UtilsFieldValidator.validatePassword(fieldPassword) == null &&
-      UtilsFieldValidator.validateConfirmPassword(
+      FieldValidatorUtils.validateEmail(fieldEmail) == null &&
+      FieldValidatorUtils.validateText(fieldFirstName) == null &&
+      FieldValidatorUtils.validateText(fieldLastName) == null &&
+      FieldValidatorUtils.validateText(fieldPatronymic) == null &&
+      FieldValidatorUtils.validatePassword(fieldPassword) == null &&
+      FieldValidatorUtils.validateConfirmPassword(
               fieldConfirmPassword, fieldPassword) ==
           null;
 }

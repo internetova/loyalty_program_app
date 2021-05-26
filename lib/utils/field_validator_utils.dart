@@ -2,8 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 
 /// validator и formatter для полей форм
-class UtilsFieldValidator {
-  UtilsFieldValidator._();
+class FieldValidatorUtils {
+  FieldValidatorUtils._();
 
   /// валидатор
   ///

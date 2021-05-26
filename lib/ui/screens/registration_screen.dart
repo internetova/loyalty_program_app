@@ -9,7 +9,7 @@ import 'package:loyalty_program_app/ui/res/assets.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:loyalty_program_app/ui/widgets/custom_text_form_field_widget.dart';
-import 'package:loyalty_program_app/utils/utils_field_validator.dart';
+import 'package:loyalty_program_app/utils/field_validator_utils.dart';
 
 /// экран регистрации
 class RegistrationScreen extends StatelessWidget {
@@ -86,7 +86,7 @@ class _BuildFieldEmail extends StatelessWidget {
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       inputFormatters: [
-        UtilsFieldValidator.formatEmail,
+        FieldValidatorUtils.formatEmail,
       ],
     );
   }
@@ -115,7 +115,7 @@ class _BuildFieldFirstName extends StatelessWidget {
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
       inputFormatters: [
-        UtilsFieldValidator.formatText,
+        FieldValidatorUtils.formatText,
       ],
     );
   }
@@ -141,7 +141,7 @@ class _BuildFieldLastName extends StatelessWidget {
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
       inputFormatters: [
-        UtilsFieldValidator.formatText,
+        FieldValidatorUtils.formatText,
       ],
     );
   }
@@ -167,7 +167,7 @@ class _BuildFieldPatronymic extends StatelessWidget {
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
       inputFormatters: [
-        UtilsFieldValidator.formatText,
+        FieldValidatorUtils.formatText,
       ],
     );
   }
@@ -193,7 +193,7 @@ class _BuildFieldPassword extends StatelessWidget {
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
       inputFormatters: [
-        UtilsFieldValidator.formatPassword,
+        FieldValidatorUtils.formatPassword,
       ],
       obscureText: true,
     );
@@ -220,7 +220,7 @@ class _BuildFieldConfirmPassword extends StatelessWidget {
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.done,
       inputFormatters: [
-        UtilsFieldValidator.formatPassword,
+        FieldValidatorUtils.formatPassword,
       ],
       obscureText: true,
     );

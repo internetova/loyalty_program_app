@@ -27,13 +27,13 @@ class FieldsEnterState extends Equatable {
   }
 
   String? get fieldEmailIsValid =>
-      UtilsFieldValidator.validateEmail(fieldEmail);
+      FieldValidatorUtils.validateEmail(fieldEmail);
 
   String? get fieldPasswordIsValid =>
-      UtilsFieldValidator.validatePassword(fieldPassword);
+      FieldValidatorUtils.validatePassword(fieldPassword);
 
   /// валидность всей формы
   bool get isValid =>
-      UtilsFieldValidator.validateEmail(fieldEmail) == null &&
-      UtilsFieldValidator.validatePassword(fieldPassword) == null;
+      FieldValidatorUtils.validateEmail(fieldEmail) == null &&
+      FieldValidatorUtils.validatePassword(fieldPassword) == null;
 }

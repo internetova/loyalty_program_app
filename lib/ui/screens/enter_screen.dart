@@ -10,7 +10,7 @@ import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loyalty_program_app/ui/widgets/custom_text_form_field_widget.dart';
-import 'package:loyalty_program_app/utils/utils_field_validator.dart';
+import 'package:loyalty_program_app/utils/field_validator_utils.dart';
 
 /// экран входа
 /// форма для входа, кнопка для регистрации
@@ -29,26 +29,41 @@ class EnterScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 60),
-          child: Form(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _BuildFieldEmail(),
-                      AppSizes.sizedBoxH16,
-                      _BuildFieldPassword(),
-                    ],
+          child: BlocListener<EnterFormBloc, EnterFormState>(
+            listener: (context, state) {
+              if (state is EnterFormSubmissionFailed) {
+                final snackBar = SnackBar(
+                  content: Text(state.exception.toString().substring(11)),
+                  backgroundColor: Theme.of(context).primaryColor,
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+
+              if (state is EnterFormSubmissionSuccess) {
+                Navigator.of(context).pushReplacementNamed(AppRoutes.main);
+              }
+            },
+            child: Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _BuildFieldEmail(),
+                        AppSizes.sizedBoxH16,
+                        _BuildFieldPassword(),
+                      ],
+                    ),
                   ),
-                ),
-                _BuildButtonEnter(),
-                AppSizes.sizedBoxH24,
-                if (isVisibleButtonReg) _BuildButtonReg(),
-              ],
+                  _BuildButtonEnter(),
+                  AppSizes.sizedBoxH24,
+                  if (isVisibleButtonReg) _BuildButtonReg(),
+                ],
+              ),
             ),
           ),
         ),
@@ -89,7 +104,7 @@ class _BuildFieldEmail extends StatelessWidget {
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       inputFormatters: [
-        UtilsFieldValidator.formatEmail,
+        FieldValidatorUtils.formatEmail,
       ],
     );
   }
@@ -118,7 +133,7 @@ class _BuildFieldPassword extends StatelessWidget {
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.done,
       inputFormatters: [
-        UtilsFieldValidator.formatPassword,
+        FieldValidatorUtils.formatPassword,
       ],
       obscureText: true,
     );

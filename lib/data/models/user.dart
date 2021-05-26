@@ -12,7 +12,7 @@ class User {
   final String patronymic;
   final String? phone;
   final DateTime? birthdate;
-  final int? cardNumber;
+  final int cardNumber;
   final LevelCode level;
 
   User({
@@ -24,7 +24,7 @@ class User {
     required this.patronymic,
     this.phone,
     this.birthdate,
-    this.cardNumber,
+    required this.cardNumber,
     this.level = LevelCode.first,
   });
 }

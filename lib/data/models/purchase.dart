@@ -4,14 +4,14 @@
 /// [cost] стоимость
 /// [bonus] начисленные / списанные бонусы
 /// [date] дата покупки
-class UserPurchase {
+class Purchase {
   final int? id;
   final String name;
   final double cost;
   final int bonus;
   final DateTime date;
 
-  UserPurchase({
+  Purchase({
     this.id,
     required this.name,
     required this.cost,

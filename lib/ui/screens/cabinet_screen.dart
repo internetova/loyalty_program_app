@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
 
-import 'package:loyalty_program_app/data/models/user_purchase.dart';
+import 'package:loyalty_program_app/data/models/purchase.dart';
 import 'package:loyalty_program_app/mocks.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
@@ -87,7 +87,7 @@ class _BuildActiveBonuses extends StatelessWidget {
 
 /// блок покупки юзера
 class _BuildUserPurchases extends StatelessWidget {
-  final List<UserPurchase> userPurchases;
+  final List<Purchase> userPurchases;
 
   const _BuildUserPurchases({
     Key? key,
@@ -113,7 +113,7 @@ class _BuildUserPurchases extends StatelessWidget {
 
 /// информация о транзакции
 class _ItemBuilder extends StatelessWidget {
-  final UserPurchase purchase;
+  final Purchase purchase;
 
   const _ItemBuilder({
     Key? key,
@@ -170,7 +170,7 @@ class _ItemBuilder extends StatelessWidget {
 
 /// дата и бонус
 class _BuildBonus extends StatelessWidget {
-  final UserPurchase purchase;
+  final Purchase purchase;
 
   const _BuildBonus({
     Key? key,
