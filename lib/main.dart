@@ -5,6 +5,8 @@ import 'package:loyalty_program_app/bloc/enter_screen/form/enter_form_bloc.dart'
 import 'package:loyalty_program_app/bloc/registration_screen/fields/fields_reg_cubit.dart';
 import 'package:loyalty_program_app/bloc/registration_screen/form/reg_form_bloc.dart';
 import 'package:loyalty_program_app/data/database/database.dart';
+import 'package:loyalty_program_app/data/local_storage/shared_pref_storage.dart';
+import 'package:loyalty_program_app/data/repository/setting_repository.dart';
 import 'package:loyalty_program_app/data/repository/user_repository.dart';
 import 'package:loyalty_program_app/mocks.dart';
 import 'package:loyalty_program_app/ui/res/routes.dart';
@@ -31,8 +33,12 @@ class MyApp extends StatelessWidget {
           create: (_) => AppDatabase(),
           dispose: (context, db) => db.close(),
         ),
-        ProxyProvider<AppDatabase, UserRepository>(
-          update: (_, db, userRepository) => UserRepository(db),
+        Provider<SharedPrefStorage>(
+          create: (_) => SharedPrefStorage(),
+        ),
+        ProxyProvider2<AppDatabase, SharedPrefStorage, UserRepository>(
+          update: (_, db, storage, userRepository) =>
+              UserRepository(db, storage),
         )
       ],
       child: MaterialApp(
@@ -68,7 +74,21 @@ class MyApp extends StatelessWidget {
                 ],
                 child: EnterScreen(),
               ),
-          AppRoutes.main: (context) => MainScreen(user: Mocks.user),
+          AppRoutes.main: (context) => MultiBlocProvider(
+                providers: [
+                  BlocProvider<FieldsEnterCubit>(
+                    create: (_) => FieldsEnterCubit(),
+                  ),
+                  BlocProvider<EnterFormBloc>(
+                    create: (_) => EnterFormBloc(
+                      context.read<UserRepository>(),
+                    ),
+                  )
+                ],
+                child: MainScreen(
+                  userEmail: '',
+                ),
+              ),
         },
       ),
     );

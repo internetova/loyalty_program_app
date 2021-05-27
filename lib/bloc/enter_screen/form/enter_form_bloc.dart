@@ -23,12 +23,12 @@ class EnterFormBloc extends Bloc<EnterFormEvent, EnterFormState> {
       yield EnterFormSubmitting();
 
       try {
-        await _userRepository.authUser(
+        final authUserEmail = await _userRepository.authUser(
           email: event.fieldsState.fieldEmail,
           password: event.fieldsState.fieldPassword,
         );
 
-        yield EnterFormSubmissionSuccess();
+        yield EnterFormSubmissionSuccess(authUserEmail);
       } catch (e) {
         print(e);
         yield EnterFormSubmissionFailed(e as Exception);

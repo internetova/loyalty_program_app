@@ -65,9 +65,12 @@ class RegFormBloc extends Bloc<RegFormEvent, RegFormState> {
 
   /// переходим на экран входа, кнопку регистрации скрываем
   void _onPressed(BuildContext context) {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
         builder: (_) => EnterScreen(
-              isVisibleButtonReg: false,
-            )));
+          isVisibleButtonReg: false,
+        ),
+      ),
+    );
   }
 }

@@ -7,11 +7,11 @@ import 'package:loyalty_program_app/ui/screens/qr_code_screen.dart';
 
 /// главный экран приложения
 class MainScreen extends StatefulWidget {
-  final User user;
+  final String userEmail;
 
   const MainScreen({
     Key? key,
-    required this.user,
+    required this.userEmail,
   }) : super(key: key);
 
   @override
@@ -20,12 +20,14 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   late int currentPage;
+  late User user;
 
   @override
   void initState() {
     super.initState();
 
     currentPage = 0;
+
   }
 
   @override
@@ -35,8 +37,9 @@ class _MainScreenState extends State<MainScreen> {
       body: IndexedStack(
         index: currentPage,
         children: [
-          CabinetScreen(user: widget.user),
-          ProfileScreen(user: widget.user),
+          /// todo передать юзера
+          // CabinetScreen(user: widget.user),
+          // ProfileScreen(user: widget.user),
         ],
       ),
       floatingActionButton: FloatingActionButton(

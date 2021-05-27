@@ -22,10 +22,14 @@ class EnterFormSubmitting extends EnterFormState {
   List<Object?> get props => [];
 }
 
-/// отправлено успешно
+/// юзер вошёл успешно
 class EnterFormSubmissionSuccess extends EnterFormState {
+  final String userEmail;
+
+  EnterFormSubmissionSuccess(this.userEmail);
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [userEmail];
 }
 
 

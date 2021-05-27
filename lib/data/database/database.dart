@@ -20,8 +20,9 @@ class AppDatabase extends _$AppDatabase {
   int get schemaVersion => 1;
 
   /// проверить есть ли юзер в базе
-  Future<List<DataUsers>> checkUser(String email) =>
-      (select(tableUsers)..where((row) => row.email.equals(email))).get();
+  Future<DataUsers?> checkUser(String email) =>
+      (select(tableUsers)..where((row) => row.email.equals(email)))
+          .getSingleOrNull();
 
   /// добавить нового пользователя
   Future<void> addUser(User user) => into(tableUsers).insert(
@@ -50,11 +51,16 @@ class AppDatabase extends _$AppDatabase {
       );
 
   /// авторизовать юзера
-  Future<List<DataUsers>> authUser(String email, String password) =>
+  Future<DataUsers?> authUser(String email, String password) =>
       (select(tableUsers)
             ..where((row) => row.email.equals(email))
             ..where((row) => row.password.equals(password)))
-          .get();
+          .getSingleOrNull();
+
+  /// получить данные юзера по email из базы
+  Future<DataUsers?> getUser(String email) =>
+      (select(tableUsers)..where((row) => row.email.equals(email)))
+          .getSingleOrNull();
 }
 
 /// открытие соединения и создание базы данных
