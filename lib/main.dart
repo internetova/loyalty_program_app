@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: AppStrings.appTitle,
         theme: _lightTheme,
+        debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.splash,
         routes: {
           AppRoutes.splash: (context) => SplashScreen(),
