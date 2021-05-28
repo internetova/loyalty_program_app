@@ -18,6 +18,14 @@ class SettingRepository {
   /// получить
   Future<String?> getEmail() async => _storage.getEmail();
 
+  Future<bool> getIsAuthUser() async => _storage.getIsAuthUser();
+
   /// сохранить
   Future<void> setEmail(String email) async => _storage.setEmail(email);
+
+  Future<void> setIsAuthUser(bool isAuthUser) async =>
+      _storage.setIsAuthUser(isAuthUser);
+
+  /// Сбросить E-mail при выходе из аккаунта
+  Future<void> clearEmail() async => _storage.clearEmail();
 }

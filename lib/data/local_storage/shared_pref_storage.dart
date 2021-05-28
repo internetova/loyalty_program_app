@@ -9,7 +9,9 @@ class SharedPrefStorage {
 
   /// идентификатор юзера - email
   /// если есть и это не первый запуск, то открываем сразу кабинет
+  final String _keyIsAuthUser = '_keyIsAuthUser';
   final String _keyEmail = '_keyEmail';
+
 
   /// загружаем и анализируем данные с диска
   Future<void> _initPrefs() async {
@@ -34,9 +36,25 @@ class SharedPrefStorage {
     await _prefs?.setString(_keyEmail, email);
   }
 
+  Future<void> setIsAuthUser(bool isAuthUser) async {
+    await _initPrefs();
+    await _prefs?.setBool(_keyIsAuthUser, isAuthUser);
+  }
+
   /// E-mail - получаем
   Future<String?> getEmail() async {
     await _initPrefs();
     return _prefs?.getString(_keyEmail) ?? null;
+  }
+
+  Future<bool> getIsAuthUser() async {
+    await _initPrefs();
+    return _prefs?.getBool(_keyIsAuthUser) ?? false;
+  }
+
+  /// Сбросить E-mail при выходе из аккаунта
+  Future<void> clearEmail() async {
+    await _initPrefs();
+    _prefs?.remove(_keyEmail);
   }
 }

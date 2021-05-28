@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:loyalty_program_app/bloc/settings_app/settings_app_cubit.dart';
+import 'package:loyalty_program_app/data/models/level.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
+import 'package:loyalty_program_app/mocks.dart';
 import 'package:loyalty_program_app/ui/components/text_button_form.dart';
+import 'package:loyalty_program_app/ui/res/routes.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:loyalty_program_app/ui/screens/about_program_screen.dart';
@@ -17,6 +22,15 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.titleScreenProfile),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _logout(context);
+            },
+            icon: Icon(Icons.logout),
+            color: Theme.of(context).primaryColor,
+          ),
+        ],
       ),
       body: CustomScrollView(
         slivers: [
@@ -37,7 +51,9 @@ class ProfileScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: TextButtonForm(
                   isButtonEnabled: true,
-                  onPressed: () {},
+                  onPressed: () {
+                    print('Изменить');
+                  },
                   title: AppStrings.buttonEdit,
                 ),
               ),
@@ -46,6 +62,14 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// выход из профиля
+  void _logout(BuildContext context) {
+    context.read<SettingsAppCubit>().logoutUser();
+
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoutes.enter, (route) => false);
   }
 }
 
@@ -74,8 +98,7 @@ class _BuildHeader extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AboutProgramScreen(user: user)));
+            _onPressedAboutProgram(context);
           },
           child: Container(
             padding: EdgeInsets.all(20),
@@ -88,6 +111,15 @@ class _BuildHeader extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  /// тап по названию Программы
+  void _onPressedAboutProgram(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AboutProgramScreen(user: user),
+      ),
     );
   }
 }
@@ -105,7 +137,9 @@ class _BuildUserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final String _birthdate = user.birthdate != null
         ? DateFormat('dd.MM.yyyy').format(user.birthdate!).toString()
-        : '';
+        : '-';
+
+    final String _phone = user.phone != null ? user.phone! : '-';
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
@@ -145,7 +179,7 @@ class _BuildUserInfo extends StatelessWidget {
           ),
           AppSizes.sizedBoxH4,
           Container(
-            child: Text('${user.phone}'),
+            child: Text(_phone),
           ).cardProfile(context),
           AppSizes.sizedBoxH12,
           Text(
@@ -154,7 +188,9 @@ class _BuildUserInfo extends StatelessWidget {
           ),
           AppSizes.sizedBoxH4,
           Container(
-            child: Text('${user.level}'),
+            child: _BuildDescriptionLevel(
+              Mocks.levels.elementAt(user.level.index),
+            ),
           ).cardProfile(context),
           AppSizes.sizedBoxH12,
         ],
@@ -174,6 +210,48 @@ extension on Container {
         color: Theme.of(context).cardColor,
       ),
       child: this,
+    );
+  }
+}
+
+/// описание уровня
+class _BuildDescriptionLevel extends StatelessWidget {
+  final Level level;
+
+  const _BuildDescriptionLevel(
+    this.level, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              level.title,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            AppSizes.sizedBoxH8,
+            Text(
+              level.description,
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
+            AppSizes.sizedBoxH12,
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Theme.of(context).accentColor.withOpacity(0.4),
+              ),
+              child: Text('${level.percent} %'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

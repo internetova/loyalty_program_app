@@ -3,8 +3,12 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loyalty_program_app/bloc/enter_screen/fields/fields_enter_cubit.dart';
+import 'package:loyalty_program_app/bloc/enter_screen/form/enter_form_bloc.dart';
 import 'package:loyalty_program_app/bloc/registration_screen/fields/fields_reg_cubit.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
+import 'package:loyalty_program_app/data/repository/setting_repository.dart';
 import 'package:loyalty_program_app/data/repository/user_repository.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:loyalty_program_app/ui/screens/enter_screen.dart';
@@ -18,8 +22,12 @@ part 'reg_form_state.dart';
 /// блок для формы регистрации
 class RegFormBloc extends Bloc<RegFormEvent, RegFormState> {
   final UserRepository _userRepository;
+  final SettingRepository _settingRepository;
 
-  RegFormBloc(this._userRepository) : super(RegFormInitial());
+  RegFormBloc(
+    this._userRepository,
+    this._settingRepository,
+  ) : super(RegFormInitial());
 
   @override
   Stream<RegFormState> mapEventToState(
@@ -41,6 +49,9 @@ class RegFormBloc extends Bloc<RegFormEvent, RegFormState> {
 
         /// записать в базу данных
         await _userRepository.addUser(user);
+
+        /// ставим флаг об успешной регистрации - не первый запуск
+        await _settingRepository.setIsFirstStart(false);
 
         /// подтверждаем сохранение данных
         showDialog(
@@ -67,8 +78,19 @@ class RegFormBloc extends Bloc<RegFormEvent, RegFormState> {
   void _onPressed(BuildContext context) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
-        builder: (_) => EnterScreen(
-          isVisibleButtonReg: false,
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider<FieldsEnterCubit>(
+              create: (_) => FieldsEnterCubit(),
+            ),
+            BlocProvider<EnterFormBloc>(
+              create: (_) => EnterFormBloc(
+                context.read<UserRepository>(),
+                context.read<SettingRepository>(),
+              ),
+            ),
+          ],
+          child: EnterScreen(isVisibleButtonReg: false),
         ),
       ),
     );

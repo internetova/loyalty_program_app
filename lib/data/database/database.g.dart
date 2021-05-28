@@ -8,7 +8,6 @@ part of 'database.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class DataUsers extends DataClass implements Insertable<DataUsers> {
-  final int id;
   final String email;
   final String password;
   final String firstName;
@@ -19,8 +18,7 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
   final int cardNumber;
   final LevelCode levelCode;
   DataUsers(
-      {required this.id,
-      required this.email,
+      {required this.email,
       required this.password,
       required this.firstName,
       required this.lastName,
@@ -33,8 +31,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return DataUsers(
-      id: const IntType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       email: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}email'])!,
       password: const StringType()
@@ -58,7 +54,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
     map['email'] = Variable<String>(email);
     map['password'] = Variable<String>(password);
     map['first_name'] = Variable<String>(firstName);
@@ -80,7 +75,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
 
   TableUsersCompanion toCompanion(bool nullToAbsent) {
     return TableUsersCompanion(
-      id: Value(id),
       email: Value(email),
       password: Value(password),
       firstName: Value(firstName),
@@ -100,7 +94,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
       {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return DataUsers(
-      id: serializer.fromJson<int>(json['id']),
       email: serializer.fromJson<String>(json['email']),
       password: serializer.fromJson<String>(json['password']),
       firstName: serializer.fromJson<String>(json['firstName']),
@@ -116,7 +109,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
       'email': serializer.toJson<String>(email),
       'password': serializer.toJson<String>(password),
       'firstName': serializer.toJson<String>(firstName),
@@ -130,8 +122,7 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
   }
 
   DataUsers copyWith(
-          {int? id,
-          String? email,
+          {String? email,
           String? password,
           String? firstName,
           String? lastName,
@@ -141,7 +132,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
           int? cardNumber,
           LevelCode? levelCode}) =>
       DataUsers(
-        id: id ?? this.id,
         email: email ?? this.email,
         password: password ?? this.password,
         firstName: firstName ?? this.firstName,
@@ -155,7 +145,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
   @override
   String toString() {
     return (StringBuffer('DataUsers(')
-          ..write('id: $id, ')
           ..write('email: $email, ')
           ..write('password: $password, ')
           ..write('firstName: $firstName, ')
@@ -171,28 +160,25 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
 
   @override
   int get hashCode => $mrjf($mrjc(
-      id.hashCode,
+      email.hashCode,
       $mrjc(
-          email.hashCode,
+          password.hashCode,
           $mrjc(
-              password.hashCode,
+              firstName.hashCode,
               $mrjc(
-                  firstName.hashCode,
+                  lastName.hashCode,
                   $mrjc(
-                      lastName.hashCode,
+                      patronymic.hashCode,
                       $mrjc(
-                          patronymic.hashCode,
+                          phone.hashCode,
                           $mrjc(
-                              phone.hashCode,
-                              $mrjc(
-                                  birthdate.hashCode,
-                                  $mrjc(cardNumber.hashCode,
-                                      levelCode.hashCode))))))))));
+                              birthdate.hashCode,
+                              $mrjc(cardNumber.hashCode,
+                                  levelCode.hashCode)))))))));
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is DataUsers &&
-          other.id == this.id &&
           other.email == this.email &&
           other.password == this.password &&
           other.firstName == this.firstName &&
@@ -205,7 +191,6 @@ class DataUsers extends DataClass implements Insertable<DataUsers> {
 }
 
 class TableUsersCompanion extends UpdateCompanion<DataUsers> {
-  final Value<int> id;
   final Value<String> email;
   final Value<String> password;
   final Value<String> firstName;
@@ -216,7 +201,6 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
   final Value<int> cardNumber;
   final Value<LevelCode> levelCode;
   const TableUsersCompanion({
-    this.id = const Value.absent(),
     this.email = const Value.absent(),
     this.password = const Value.absent(),
     this.firstName = const Value.absent(),
@@ -228,7 +212,6 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
     this.levelCode = const Value.absent(),
   });
   TableUsersCompanion.insert({
-    this.id = const Value.absent(),
     required String email,
     required String password,
     required String firstName,
@@ -246,7 +229,6 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
         cardNumber = Value(cardNumber),
         levelCode = Value(levelCode);
   static Insertable<DataUsers> custom({
-    Expression<int>? id,
     Expression<String>? email,
     Expression<String>? password,
     Expression<String>? firstName,
@@ -258,7 +240,6 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
     Expression<LevelCode>? levelCode,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
       if (email != null) 'email': email,
       if (password != null) 'password': password,
       if (firstName != null) 'first_name': firstName,
@@ -272,8 +253,7 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
   }
 
   TableUsersCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? email,
+      {Value<String>? email,
       Value<String>? password,
       Value<String>? firstName,
       Value<String>? lastName,
@@ -283,7 +263,6 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
       Value<int>? cardNumber,
       Value<LevelCode>? levelCode}) {
     return TableUsersCompanion(
-      id: id ?? this.id,
       email: email ?? this.email,
       password: password ?? this.password,
       firstName: firstName ?? this.firstName,
@@ -299,9 +278,6 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
     if (email.present) {
       map['email'] = Variable<String>(email.value);
     }
@@ -336,7 +312,6 @@ class TableUsersCompanion extends UpdateCompanion<DataUsers> {
   @override
   String toString() {
     return (StringBuffer('TableUsersCompanion(')
-          ..write('id: $id, ')
           ..write('email: $email, ')
           ..write('password: $password, ')
           ..write('firstName: $firstName, ')
@@ -356,14 +331,6 @@ class $TableUsersTable extends TableUsers
   final GeneratedDatabase _db;
   final String? _alias;
   $TableUsersTable(this._db, [this._alias]);
-  final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
   final VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedTextColumn email = _constructEmail();
@@ -465,7 +432,6 @@ class $TableUsersTable extends TableUsers
 
   @override
   List<GeneratedColumn> get $columns => [
-        id,
         email,
         password,
         firstName,
@@ -487,9 +453,6 @@ class $TableUsersTable extends TableUsers
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
     if (data.containsKey('email')) {
       context.handle(
           _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
@@ -543,7 +506,7 @@ class $TableUsersTable extends TableUsers
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {email, cardNumber};
   @override
   DataUsers map(Map<String, dynamic> data, {String? tablePrefix}) {
     return DataUsers.fromData(data, _db,

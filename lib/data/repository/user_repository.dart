@@ -36,7 +36,6 @@ class UserRepository {
   Future<void> updateUser(User user, User newDataUser) async {
     _database.updateUser(
       User(
-        id: user.id,
         email: user.email,
         password: user.password,
         firstName: newDataUser.firstName,
@@ -62,6 +61,27 @@ class UserRepository {
       return isAuthUser.email;
     } else {
       throw Exception(AppStrings.errorIncorrectField);
+    }
+  }
+
+  /// получить данные юзера по email из базы
+  Future<User> getUser(String email) async {
+    final DataUsers? dataUser = await _database.getUser(email);
+
+    if (dataUser != null) {
+      return User(
+        email: dataUser.email,
+        firstName: dataUser.firstName,
+        lastName: dataUser.lastName,
+        patronymic: dataUser.patronymic,
+        phone: dataUser.phone,
+        birthdate: dataUser.birthdate,
+        cardNumber: dataUser.cardNumber,
+        level: dataUser.levelCode,
+        password: dataUser.password,
+      );
+    } else {
+      throw Exception(AppStrings.errorUserNull);
     }
   }
 }

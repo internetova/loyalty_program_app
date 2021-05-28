@@ -6,7 +6,6 @@ import 'package:loyalty_program_app/data/models/purchase.dart';
 class Mocks {
   /// данные юзера
   static final user = User(
-    id: 1,
     firstName: 'Иван',
     lastName: 'Петров',
     patronymic: 'Сергеевич',

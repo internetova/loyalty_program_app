@@ -1,10 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:loyalty_program_app/data/models/level.dart';
 
 /// параметры юзера
 /// [cardNumber] предполагается, что при регистрации система автоматически
 /// присвоет номер карты, я положу туда рандомное число
-class User {
-  final int? id;
+class User extends Equatable {
   final String email;
   final String password;
   final String firstName;
@@ -16,7 +16,6 @@ class User {
   final LevelCode level;
 
   User({
-    this.id,
     required this.email,
     required this.password,
     required this.firstName,
@@ -27,4 +26,16 @@ class User {
     required this.cardNumber,
     this.level = LevelCode.first,
   });
+
+  @override
+  List<Object?> get props => [
+        email,
+        firstName,
+        lastName,
+        patronymic,
+        phone,
+        birthdate,
+        cardNumber,
+        level,
+      ];
 }

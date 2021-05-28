@@ -5,8 +5,6 @@ import 'package:moor/moor.dart';
 /// Пользователи
 @DataClassName('DataUsers')
 class TableUsers extends Table {
-  IntColumn get id => integer().autoIncrement()();
-
   TextColumn get email => text()();
 
   TextColumn get password => text()();
@@ -24,4 +22,6 @@ class TableUsers extends Table {
   IntColumn get cardNumber => integer()();
 
   IntColumn get levelCode => intEnum<LevelCode>()();
+
+  Set<Column>? get primaryKey => {email, cardNumber};
 }

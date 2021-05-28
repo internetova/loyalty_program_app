@@ -34,6 +34,7 @@ class AppStrings {
   static const errorPasswordField = 'Не менее 8-ми символов';
   static const errorConfirmPasswordField = 'Пароли не совпадают';
   static const errorUserExists = 'Такой пользователь уже существует!';
+  static const errorUserNull = 'Пользователь не найден';
 
   /// экран регистрации
   static const regContentHeader = 'Спасибо за регистрацию!';

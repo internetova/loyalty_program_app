@@ -9,6 +9,7 @@ import 'package:loyalty_program_app/ui/res/routes.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loyalty_program_app/ui/routes/main_screen_route.dart';
 import 'package:loyalty_program_app/ui/widgets/custom_text_form_field_widget.dart';
 import 'package:loyalty_program_app/utils/field_validator_utils.dart';
 
@@ -40,7 +41,7 @@ class EnterScreen extends StatelessWidget {
               }
 
               if (state is EnterFormSubmissionSuccess) {
-                Navigator.of(context).pushReplacementNamed(AppRoutes.main);
+                MainScreenRoute.goMainScreen(context, state.userEmail);
               }
             },
             child: Form(
@@ -181,9 +182,7 @@ class _BuildButtonEnter extends StatelessWidget {
   }) {
     // отправляем данные из полей формы
     context.read<EnterFormBloc>().add(
-          EnterFormEventSubmitted(
-            fieldsState: fieldsState,
-          ),
+          EnterFormEventSubmitted(fieldsState: fieldsState),
         );
   }
 }
