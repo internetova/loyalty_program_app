@@ -5,11 +5,10 @@ import 'package:loyalty_program_app/bloc/settings_app/settings_app_cubit.dart';
 import 'package:loyalty_program_app/data/models/level.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
 import 'package:loyalty_program_app/mocks.dart';
-import 'package:loyalty_program_app/ui/components/text_button_form.dart';
 import 'package:loyalty_program_app/ui/res/routes.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
-import 'package:loyalty_program_app/ui/screens/about_program_screen.dart';
+import 'package:loyalty_program_app/ui/routes/about_program_route.dart';
 
 /// экран профиля
 class ProfileScreen extends StatelessWidget {
@@ -25,6 +24,14 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
+              // todo
+             print('edit');
+            },
+            icon: Icon(Icons.edit),
+            color: Theme.of(context).primaryColor,
+          ),
+          IconButton(
+            onPressed: () {
               _logout(context);
             },
             icon: Icon(Icons.logout),
@@ -32,9 +39,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
+      body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -43,24 +48,6 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 40),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: TextButtonForm(
-                  isButtonEnabled: true,
-                  onPressed: () {
-                    print('Изменить');
-                  },
-                  title: AppStrings.buttonEdit,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -98,7 +85,7 @@ class _BuildHeader extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            _onPressedAboutProgram(context);
+            _onPressedAboutProgram(context, user);
           },
           child: Container(
             padding: EdgeInsets.all(20),
@@ -115,12 +102,8 @@ class _BuildHeader extends StatelessWidget {
   }
 
   /// тап по названию Программы
-  void _onPressedAboutProgram(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => AboutProgramScreen(user: user),
-      ),
-    );
+  void _onPressedAboutProgram(BuildContext context, User user) {
+    AboutProgramRoute.goAboutProgramScreen(context, user);
   }
 }
 

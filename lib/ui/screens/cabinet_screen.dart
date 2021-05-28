@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
-
 import 'package:loyalty_program_app/data/models/purchase.dart';
 import 'package:loyalty_program_app/mocks.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
+import 'package:loyalty_program_app/ui/routes/about_program_route.dart';
 
 /// экран Кабинет
 class CabinetScreen extends StatelessWidget {
@@ -25,7 +25,7 @@ class CabinetScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: _BuildActiveBonuses(activeBonuses: 500),
+            child: _BuildActiveBonuses(activeBonuses: 500, user: user),
           ),
           SliverPadding(
             padding: const EdgeInsets.all(16),
@@ -41,11 +41,13 @@ class CabinetScreen extends StatelessWidget {
 
 /// блок активные бонусы с названием программы
 class _BuildActiveBonuses extends StatelessWidget {
+  final User user;
   final int activeBonuses;
 
   const _BuildActiveBonuses({
     Key? key,
     required this.activeBonuses,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -60,9 +62,14 @@ class _BuildActiveBonuses extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppStrings.loyaltyName,
-            style: Theme.of(context).textTheme.headline6,
+          GestureDetector(
+            onTap: () {
+              _onPressedAboutProgram(context, user);
+            },
+            child: Text(
+              AppStrings.loyaltyName,
+              style: Theme.of(context).textTheme.headline6,
+            ),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -82,6 +89,11 @@ class _BuildActiveBonuses extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// тап по названию Программы
+  void _onPressedAboutProgram(BuildContext context, User user) {
+    AboutProgramRoute.goAboutProgramScreen(context, user);
   }
 }
 
