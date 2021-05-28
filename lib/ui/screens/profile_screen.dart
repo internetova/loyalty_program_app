@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loyalty_program_app/bloc/settings_app/settings_app_cubit.dart';
 import 'package:loyalty_program_app/data/models/level.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
@@ -9,6 +9,7 @@ import 'package:loyalty_program_app/ui/res/routes.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:loyalty_program_app/ui/routes/about_program_route.dart';
+import 'package:loyalty_program_app/ui/routes/edit_screen_route.dart';
 
 /// экран профиля
 class ProfileScreen extends StatelessWidget {
@@ -19,36 +20,52 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppStrings.titleScreenProfile),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // todo
-             print('edit');
-            },
-            icon: Icon(Icons.edit),
-            color: Theme.of(context).primaryColor,
-          ),
-          IconButton(
-            onPressed: () {
-              _logout(context);
-            },
-            icon: Icon(Icons.logout),
-            color: Theme.of(context).primaryColor,
-          ),
-        ],
-      ),
+      appBar: _BuildAppBar(user: user),
       body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _BuildHeader(user: user),
-                _BuildUserInfo(user: user),
-              ],
-            ),
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _BuildHeader(user: user),
+            _BuildUserInfo(user: user),
+          ],
+        ),
+      ),
     );
+  }
+}
+
+/// AppBar
+class _BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final User user;
+
+  const _BuildAppBar({Key? key, required this.user}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(AppStrings.titleScreenProfile),
+      actions: [
+        IconButton(
+          onPressed: () {
+            _edit(context);
+          },
+          icon: Icon(Icons.edit),
+          color: Theme.of(context).primaryColor,
+        ),
+        IconButton(
+          onPressed: () {
+            _logout(context);
+          },
+          icon: Icon(Icons.logout),
+          color: Theme.of(context).primaryColor,
+        ),
+      ],
+    );
+  }
+
+  /// редактировать профиль
+  void _edit(BuildContext context) {
+    EditScreenRoute.goEditProfileScreen(context, user);
   }
 
   /// выход из профиля
@@ -58,7 +75,11 @@ class ProfileScreen extends StatelessWidget {
     Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRoutes.enter, (route) => false);
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(AppSizes.appBarStandardHeader);
 }
+
 
 /// верхний блок с ФИО и названием ЛП
 class _BuildHeader extends StatelessWidget {

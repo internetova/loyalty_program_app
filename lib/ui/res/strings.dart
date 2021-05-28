@@ -11,6 +11,8 @@ class AppStrings {
   static const titleScreenProfile = 'Профиль';
   static const titleScreenAboutProgram = 'О программе';
   static const subtitleScreenAboutProgram = 'Описание уровней';
+  static const titleScreenEditProfile = 'Редактировать профиль';
+
 
   /// поля форм
   static const inputEmail = 'E-mail:';

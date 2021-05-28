@@ -41,7 +41,11 @@ class EnterScreen extends StatelessWidget {
               }
 
               if (state is EnterFormSubmissionSuccess) {
-                MainScreenRoute.goMainScreen(context, state.userEmail);
+                MainScreenRoute.goMainScreen(
+                  context,
+                  authUserEmail: state.userEmail,
+                  pageIndex: 0,
+                );
               }
             },
             child: Form(

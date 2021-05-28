@@ -46,7 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
       final String authUserEmail =
           context.read<SettingsAppCubit>().state.authUserEmail!;
 
-      MainScreenRoute.goMainScreen(context, authUserEmail);
+      MainScreenRoute.goMainScreen(
+        context,
+        authUserEmail: authUserEmail,
+        pageIndex: 0,
+      );
 
       /// если зарегистрирован - не первый запуск приложения
     } else {

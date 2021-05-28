@@ -10,7 +10,10 @@ class MainScreenRoute {
   MainScreenRoute._();
 
   static Future<Object?> goMainScreen(
-      BuildContext context, String authUserEmail) {
+    BuildContext context, {
+    required String authUserEmail,
+    required int pageIndex,
+  }) {
     return Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => MultiBlocProvider(
@@ -21,7 +24,7 @@ class MainScreenRoute {
               )..add(UserRequested(authUserEmail)),
             ),
             BlocProvider<MainPagesCubit>(
-              create: (_) => MainPagesCubit(),
+              create: (_) => MainPagesCubit()..changedPage(pageIndex),
             )
           ],
           child: MainScreen(),

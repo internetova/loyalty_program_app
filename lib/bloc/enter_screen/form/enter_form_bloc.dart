@@ -38,7 +38,6 @@ class EnterFormBloc extends Bloc<EnterFormEvent, EnterFormState> {
 
         yield EnterFormSubmissionSuccess(authUserEmail);
       } catch (e) {
-        print(e);
         yield EnterFormSubmissionFailed(e as Exception);
         rethrow;
       }

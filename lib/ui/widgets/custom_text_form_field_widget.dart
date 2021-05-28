@@ -21,6 +21,7 @@ class CustomTextFormFieldWidget extends StatefulWidget {
   final bool obscureText;
   final String? hintText;
   final List<TextInputFormatter>? inputFormatters;
+  final String? text;
 
   const CustomTextFormFieldWidget({
     Key? key,
@@ -31,7 +32,7 @@ class CustomTextFormFieldWidget extends StatefulWidget {
     this.onEditingComplete,
     this.onChanged,
     required this.onClear,
-    required this.validator,
+    this.validator,
     this.onSaved,
     this.maxLength = 50,
     this.maxLines = 1,
@@ -40,6 +41,7 @@ class CustomTextFormFieldWidget extends StatefulWidget {
     this.hintText,
     this.obscureText = false,
     this.inputFormatters,
+    this.text,
   }) : super(key: key);
 
   @override
@@ -60,6 +62,8 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
 
     _controller.addListener(() => setState(() {}));
     _focusNode.addListener(() => setState(() {}));
+
+    _controller.text = widget.text ?? '';
   }
 
   @override

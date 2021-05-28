@@ -6,6 +6,7 @@ class AppSizes {
 
   static const double appLogo = 200;
   static const double appBarLogoHeader = 100;
+  static const double appBarStandardHeader = 60;
 
   static const sizedBoxW8 = SizedBox(width: 8);
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
 import 'package:loyalty_program_app/ui/screens/about_program_screen.dart';
 
-/// маршрут на страницуО программе
+/// маршрут на страницу О программе
 class AboutProgramRoute {
   AboutProgramRoute._();
 
