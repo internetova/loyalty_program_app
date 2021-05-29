@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
 import 'package:loyalty_program_app/utils/field_validator_utils.dart';
 

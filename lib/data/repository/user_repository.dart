@@ -33,21 +33,8 @@ class UserRepository {
   }
 
   /// редактировать пользователя
-  Future<void> updateUser(User user, User newDataUser) async {
-    _database.updateUser(
-      User(
-        email: user.email,
-        password: user.password,
-        firstName: newDataUser.firstName,
-        lastName: newDataUser.lastName,
-        patronymic: newDataUser.patronymic,
-        phone: newDataUser.phone,
-        birthdate: newDataUser.birthdate,
-        cardNumber: user.cardNumber,
-        level: user.level,
-      ),
-    );
-  }
+  Future<void> updateUser(User newDataUser) =>
+      _database.updateUser(newDataUser);
 
   /// авторизация пользователя
   /// если всё Ок вернём и сохраним в хранилище email и по нему уже будем

@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 /// validator и formatter для полей форм
 class FieldValidatorUtils {
@@ -41,6 +42,22 @@ class FieldValidatorUtils {
     return null;
   }
 
+  /// дата рождения
+  static String? validateBirthdate(String value) {
+    if (value.isEmpty) return AppStrings.errorEmptyField;
+    if (value.length < 10) return AppStrings.errorIncorrectField;
+
+    return null;
+  }
+
+  /// номер телефона
+  static String? validatePhone(String value) {
+    if (value.isEmpty) return AppStrings.errorEmptyField;
+    if (value.length < 18) return AppStrings.errorIncorrectField;
+
+    return null;
+  }
+
   /// inputFormatters
   ///
   /// форматер для E-mail
@@ -54,4 +71,14 @@ class FieldValidatorUtils {
   /// форматер для текстового поля без пробелов Имя, Отчество, Фамилия
   static final formatText =
       FilteringTextInputFormatter.allow(RegExp(r'[а-яА-Я]'));
+
+  /// форматер для чисел без
+  static final formatNumber =
+  FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'));
+
+  /// форматер для даты 23.05.1974
+  static final formatDate = MaskTextInputFormatter(mask: "##.##.####");
+
+  /// форматер для телефона
+  static final formatPhone = MaskTextInputFormatter(mask: "+# (###) ###-##-##");
 }

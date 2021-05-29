@@ -45,6 +45,8 @@ class AppDatabase extends _$AppDatabase {
           firstName: Value(user.firstName),
           lastName: Value(user.lastName),
           patronymic: Value(user.patronymic),
+          phone: Value(user.phone),
+          birthdate: Value(user.birthdate),
           cardNumber: Value(user.cardNumber),
           levelCode: Value(user.level),
         ),

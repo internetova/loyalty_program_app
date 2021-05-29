@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:loyalty_program_app/bloc/edit_profile_screen/fields/fields_edit_profile_cubit.dart';
 import 'package:loyalty_program_app/bloc/edit_profile_screen/form/edit_profile_form_bloc.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
@@ -34,7 +35,7 @@ class EditProfileScreen extends StatelessWidget {
                 listener: (context, state) {
                   if (state is EditProfileFormSubmissionFailed) {
                     final snackBar = SnackBar(
-                      content: Text(state.exception.toString().substring(11)),
+                      content: Text(state.exception.toString()),
                       backgroundColor: Theme.of(context).primaryColor,
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -166,7 +167,7 @@ class _BuildFieldPatronymic extends StatelessWidget {
       context.read<FieldsEditProfileCubit>().patronymicChanged(value);
 
   void _onClear(BuildContext context) =>
-      context.read<FieldsEditProfileCubit>().lastNameChanged('');
+      context.read<FieldsEditProfileCubit>().patronymicChanged('');
 
   String? _validator(BuildContext context) =>
       context.read<FieldsEditProfileCubit>().state.fieldPatronymicIsValid;
@@ -182,15 +183,22 @@ class _BuildFieldBirthdate extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextFormFieldWidget(
       title: AppStrings.inputBirthdate,
-      text: user.birthdate != null ? user.birthdate.toString() : '',
+      text: user.birthdate != null
+          ? _dateTransform(user.birthdate!)
+          : '',
       onChanged: (value) => _onChanged(context, value),
       onClear: () => _onClear(context),
-      // todo формат и запись
+      validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      hintText: 'дд.мм.гггг',
       inputFormatters: [
-        FieldValidatorUtils.formatText,
+        FieldValidatorUtils.formatDate,
       ],
     );
+  }
+
+  String _dateTransform(DateTime date) {
+    return DateFormat('dd.MM.yyyy').format(date);
   }
 
   void _onChanged(BuildContext context, String? value) =>
@@ -198,6 +206,9 @@ class _BuildFieldBirthdate extends StatelessWidget {
 
   void _onClear(BuildContext context) =>
       context.read<FieldsEditProfileCubit>().birthdateChanged('');
+
+  String? _validator(BuildContext context) =>
+      context.read<FieldsEditProfileCubit>().state.fieldBirthdateIsValid;
 }
 
 /// поле телефон
@@ -210,13 +221,15 @@ class _BuildFieldPhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextFormFieldWidget(
       title: AppStrings.inputPhone,
-      text: user.phone ?? '',
+      text: user.phone,
       onChanged: (value) => _onChanged(context, value),
       onClear: () => _onClear(context),
-      // todo формат и запись
-      textInputAction: TextInputAction.next,
+      validator: (_) => _validator(context),
+      keyboardType: TextInputType.phone,
+      hintText: '+7 (000) 000-00-00',
+      textInputAction: TextInputAction.done,
       inputFormatters: [
-        FieldValidatorUtils.formatText,
+        FieldValidatorUtils.formatPhone,
       ],
     );
   }
@@ -226,6 +239,9 @@ class _BuildFieldPhone extends StatelessWidget {
 
   void _onClear(BuildContext context) =>
       context.read<FieldsEditProfileCubit>().phoneChanged('');
+
+  String? _validator(BuildContext context) =>
+      context.read<FieldsEditProfileCubit>().state.fieldPhoneIsValid;
 }
 
 /// кнопка сохранить

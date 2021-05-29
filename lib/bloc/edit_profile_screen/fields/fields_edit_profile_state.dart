@@ -1,7 +1,8 @@
 part of 'fields_edit_profile_cubit.dart';
 
 /// состояние полей формы редактирования профиля
-class FieldsEditProfileState extends Equatable {
+@immutable
+class FieldsEditProfileState {
   final String fieldFirstName;
   final String fieldLastName;
   final String fieldPatronymic;
@@ -15,13 +16,6 @@ class FieldsEditProfileState extends Equatable {
     this.fieldBirthdate = '',
     this.fieldPhone = '',
   });
-
-  @override
-  List<Object> get props => [
-    fieldFirstName,
-    fieldLastName,
-    fieldPatronymic,
-  ];
 
   FieldsEditProfileState copyWith({
     String? fieldFirstName,
@@ -48,11 +42,16 @@ class FieldsEditProfileState extends Equatable {
   String? get fieldPatronymicIsValid =>
       FieldValidatorUtils.validateText(fieldPatronymic);
 
+  String? get fieldBirthdateIsValid => FieldValidatorUtils.validateBirthdate(fieldBirthdate ?? '');
+
+  String? get fieldPhoneIsValid => FieldValidatorUtils.validatePhone(fieldPhone ?? '');
+
 
   /// валидность всей формы
-  /// день рождения и телефон не обязательны
   bool get isValid =>
           FieldValidatorUtils.validateText(fieldFirstName) == null &&
           FieldValidatorUtils.validateText(fieldLastName) == null &&
-          FieldValidatorUtils.validateText(fieldPatronymic) == null;
+          FieldValidatorUtils.validateText(fieldPatronymic) == null &&
+          FieldValidatorUtils.validateBirthdate(fieldBirthdate ?? '') == null &&
+          FieldValidatorUtils.validatePhone(fieldPhone ?? '') == null;
 }

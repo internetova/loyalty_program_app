@@ -96,6 +96,11 @@ class _CustomTextFormFieldWidgetState extends State<CustomTextFormFieldWidget> {
           textInputAction: widget.textInputAction,
           decoration: InputDecoration(
             counterText: '',
+            hintText: widget.hintText,
+            hintStyle: Theme.of(context)
+                .primaryTextTheme
+                .subtitle1!
+                .copyWith(color: Theme.of(context).primaryColorLight),
             suffixIcon: _clearField(
               focusNode: _focusNode,
               controller: _controller,

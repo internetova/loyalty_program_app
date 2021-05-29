@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:loyalty_program_app/bloc/edit_profile_screen/fields/fields_edit_profile_cubit.dart';
 import 'package:loyalty_program_app/data/models/user.dart';
 import 'package:loyalty_program_app/data/repository/user_repository.dart';
@@ -30,8 +31,15 @@ class EditProfileFormBloc
         /// преобразуем дату из строки в дату
         DateTime? _birthdate;
 
-        if (event.fieldsState.fieldBirthdate != null) {
-          _birthdate = DateTime.parse(event.fieldsState.fieldBirthdate!);
+        if (event.fieldsState.fieldBirthdate != null &&
+            event.fieldsState.fieldBirthdate != '') {
+          if (event.fieldsState.fieldBirthdate?.length == 10) {
+            _birthdate = DateFormat('dd.MM.yyyy')
+                .parse((event.fieldsState.fieldBirthdate!));
+          } else {
+            _birthdate = DateFormat('yyyy-MM-dd')
+                .parse((event.fieldsState.fieldBirthdate!));
+          }
         }
 
         /// сюда сохраним данные полей формы
@@ -47,7 +55,7 @@ class EditProfileFormBloc
         );
 
         /// записать в базу данных
-        await _userRepository.updateUser(user, newDataUser);
+        await _userRepository.updateUser(newDataUser);
 
         yield EditProfileFormSubmissionSuccess();
       } catch (e) {

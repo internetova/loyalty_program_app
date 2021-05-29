@@ -34,7 +34,7 @@ class EnterScreen extends StatelessWidget {
             listener: (context, state) {
               if (state is EnterFormSubmissionFailed) {
                 final snackBar = SnackBar(
-                  content: Text(state.exception.toString().substring(11)),
+                  content: Text(state.exception.toString()),
                   backgroundColor: Theme.of(context).primaryColor,
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
