@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:loyalty_program_app/data/models/user.dart';
 import 'package:loyalty_program_app/ui/res/sizes.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 /// боттомшит с qr кодом
 class QRCodeScreen extends StatelessWidget {
-  const QRCodeScreen({Key? key}) : super(key: key);
+  final User user;
+
+  const QRCodeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +25,11 @@ class QRCodeScreen extends StatelessWidget {
             child: Stack(
               children: [
                 Center(
-                  child: Container(
-                    width: 300,
-                    height: 300,
-                    color: Colors.black,
+                  child: QrImage(
+                    data:
+                        '${user.cardNumber}, ${user.firstName} ${user.lastName} ${user.patronymic}',
+                    version: QrVersions.auto,
+                    size: 300.0,
                   ),
                 ),
                 Positioned(
@@ -67,7 +72,8 @@ class _ButtonClose extends StatelessWidget {
             ),
           ),
         ),
-        child: Icon(Icons.close,
+        child: Icon(
+          Icons.close,
           color: Theme.of(context).colorScheme.onPrimary,
         ),
         onPressed: () {

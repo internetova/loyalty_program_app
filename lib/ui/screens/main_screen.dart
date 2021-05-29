@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_program_app/bloc/main_screen/pages/main_pages_cubit.dart';
 import 'package:loyalty_program_app/bloc/main_screen/main_screen_bloc.dart';
+import 'package:loyalty_program_app/data/models/user.dart';
 import 'package:loyalty_program_app/ui/res/strings.dart';
 import 'package:loyalty_program_app/ui/screens/cabinet_screen.dart';
 import 'package:loyalty_program_app/ui/screens/profile_screen.dart';
@@ -36,7 +37,7 @@ class MainScreen extends StatelessWidget {
                   child: Icon(Icons.qr_code),
                   elevation: 0,
                   onPressed: () {
-                    _showDetailsBottomSheet(context);
+                    _showDetailsBottomSheet(context, _authUser);
                   },
                 ),
                 floatingActionButtonLocation:
@@ -45,22 +46,21 @@ class MainScreen extends StatelessWidget {
             },
           );
         } else if (state is MainScreenUserLoadFailure) {
-          // todo экран с ошибкой
+
           return Text(state.exception.toString());
         }
 
-        // todo лоадер
         return CircularProgressIndicator.adaptive();
       },
     );
   }
 
   /// показать боттомшит с деталями
-  Future<void> _showDetailsBottomSheet(BuildContext context) async {
+  Future<void> _showDetailsBottomSheet(BuildContext context, User user) async {
     await showModalBottomSheet(
       context: context,
       builder: (_) {
-        return QRCodeScreen();
+        return QRCodeScreen(user: user);
       },
       isScrollControlled: true,
       isDismissible: true,
