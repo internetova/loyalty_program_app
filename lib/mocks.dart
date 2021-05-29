@@ -1,24 +1,10 @@
 import 'package:loyalty_program_app/data/models/level.dart';
-import 'package:loyalty_program_app/data/models/user.dart';
 import 'package:loyalty_program_app/data/models/purchase.dart';
 
 /// моковые данные для вёрстки
 class Mocks {
-  /// данные юзера
-  static final user = User(
-    firstName: 'Иван',
-    lastName: 'Петров',
-    patronymic: 'Сергеевич',
-    email: 'ivanov@yandex.ru',
-    password: '12345678',
-    phone: '+79257411212',
-    birthdate: DateTime.now(),
-    cardNumber: 123456,
-    level: LevelCode.first,
-  );
-
   /// покупки юзера
-  static final List<Purchase> mockUserPurchases = [
+  static final List<Purchase> userPurchases = [
     Purchase(
       name: 'Название покупки 1',
       cost: 200.00,

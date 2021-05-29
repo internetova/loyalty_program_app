@@ -25,17 +25,24 @@ class CabinetScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: _BuildActiveBonuses(activeBonuses: 500, user: user),
+            child: _BuildActiveBonuses(activeBonuses: _getBonuses(), user: user),
           ),
           SliverPadding(
             padding: const EdgeInsets.all(16),
             sliver: _BuildUserPurchases(
-              userPurchases: Mocks.mockUserPurchases,
+              userPurchases: Mocks.userPurchases,
             ),
           ),
         ],
       ),
     );
+  }
+
+  /// активные бонусы из моковых данных
+  int _getBonuses() {
+    return Mocks.userPurchases
+        .map<int>((purchase) => (purchase.bonus))
+        .reduce((a, b) => a + b);
   }
 }
 
