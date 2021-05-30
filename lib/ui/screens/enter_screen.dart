@@ -27,51 +27,60 @@ class EnterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _BuildAppBar(),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 60),
-          child: BlocListener<EnterFormBloc, EnterFormState>(
-            listener: (context, state) {
-              if (state is EnterFormSubmissionFailed) {
-                final snackBar = SnackBar(
-                  content: Text(state.exception.toString()),
-                  backgroundColor: Theme.of(context).primaryColor,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 60),
+              child: BlocListener<EnterFormBloc, EnterFormState>(
+                listener: (context, state) {
+                  if (state is EnterFormSubmissionFailed) {
+                    final snackBar = SnackBar(
+                      content: Text(state.exception.toString()),
+                      backgroundColor: Theme.of(context).primaryColor,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
 
-              if (state is EnterFormSubmissionSuccess) {
-                MainScreenRoute.goMainScreen(
-                  context,
-                  authUserEmail: state.userEmail,
-                  pageIndex: 0,
-                );
-              }
-            },
-            child: Form(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _BuildFieldEmail(),
-                        AppSizes.sizedBoxH16,
-                        _BuildFieldPassword(),
-                      ],
-                    ),
+                  if (state is EnterFormSubmissionSuccess) {
+                    MainScreenRoute.goMainScreen(
+                      context,
+                      authUserEmail: state.userEmail,
+                      pageIndex: 0,
+                    );
+                  }
+                },
+                child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _BuildFieldEmail(),
+                      AppSizes.sizedBoxH16,
+                      _BuildFieldPassword(),
+                    ],
                   ),
+                ),
+              ),
+            ),
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                   _BuildButtonEnter(),
                   AppSizes.sizedBoxH24,
                   if (isVisibleButtonReg) _BuildButtonReg(),
+                  AppSizes.sizedBoxH40,
                 ],
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -84,7 +93,7 @@ class _BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(60),
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: const EdgeInsets.only(top: 30, bottom: 20),
         child: WrapperSvg(
           imgUrl: AppAssets.icLogo,
           width: AppSizes.appLogo,
@@ -107,6 +116,7 @@ class _BuildFieldEmail extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       keyboardType: TextInputType.emailAddress,
       inputFormatters: [
         FieldValidatorUtils.formatEmail,
@@ -137,6 +147,7 @@ class _BuildFieldPassword extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.done,
+      onFieldSubmitted: (_) => FocusScope.of(context).unfocus,
       inputFormatters: [
         FieldValidatorUtils.formatPassword,
       ],

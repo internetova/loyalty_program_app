@@ -95,6 +95,7 @@ class _BuildFieldFirstName extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputFormatters: [
         FieldValidatorUtils.formatText,
       ],
@@ -126,6 +127,7 @@ class _BuildFieldLastName extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputFormatters: [
         FieldValidatorUtils.formatText,
       ],
@@ -157,6 +159,7 @@ class _BuildFieldPatronymic extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputFormatters: [
         FieldValidatorUtils.formatText,
       ],
@@ -190,6 +193,7 @@ class _BuildFieldBirthdate extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       hintText: 'дд.мм.гггг',
       inputFormatters: [
         FieldValidatorUtils.formatDate,
@@ -228,6 +232,7 @@ class _BuildFieldPhone extends StatelessWidget {
       keyboardType: TextInputType.phone,
       hintText: '+7 (000) 000-00-00',
       textInputAction: TextInputAction.done,
+      onFieldSubmitted: (_) => FocusScope.of(context).unfocus,
       inputFormatters: [
         FieldValidatorUtils.formatPhone,
       ],

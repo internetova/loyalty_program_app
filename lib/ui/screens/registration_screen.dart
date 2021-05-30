@@ -61,7 +61,7 @@ class _BuildAppBar extends StatelessWidget implements PreferredSizeWidget {
     return PreferredSize(
       preferredSize: Size.fromHeight(60),
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: const EdgeInsets.only(top: 30, bottom: 20),
         child: WrapperSvg(
           imgUrl: AppAssets.icLogo,
           width: AppSizes.appLogo,
@@ -84,6 +84,7 @@ class _BuildFieldEmail extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       keyboardType: TextInputType.emailAddress,
       inputFormatters: [
         FieldValidatorUtils.formatEmail,
@@ -114,6 +115,7 @@ class _BuildFieldFirstName extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputFormatters: [
         FieldValidatorUtils.formatText,
       ],
@@ -140,6 +142,7 @@ class _BuildFieldLastName extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputFormatters: [
         FieldValidatorUtils.formatText,
       ],
@@ -166,6 +169,7 @@ class _BuildFieldPatronymic extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputFormatters: [
         FieldValidatorUtils.formatText,
       ],
@@ -192,6 +196,7 @@ class _BuildFieldPassword extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.next,
+      onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
       inputFormatters: [
         FieldValidatorUtils.formatPassword,
       ],
@@ -219,6 +224,7 @@ class _BuildFieldConfirmPassword extends StatelessWidget {
       onClear: () => _onClear(context),
       validator: (_) => _validator(context),
       textInputAction: TextInputAction.done,
+      onFieldSubmitted: (_) => FocusScope.of(context).unfocus,
       inputFormatters: [
         FieldValidatorUtils.formatPassword,
       ],
