@@ -18,35 +18,35 @@
 
 ### Экран регистрации
 
-![экран регистрации](readme_img/img_reg.png)
+![экран регистрации](readme/small/img_reg.png)
 
 ### Экран входа
 
-![экран входа](readme_img/img_enter.png)
+![экран входа](readme/small/img_enter.png)
 
 ### Экран кабинет
 
-![экран кабинет](readme_img/img_cabinet.png)
+![экран кабинет](readme/small/img_cabinet.png)
 
 ### Экран профиль
 
-![экран профиль](readme_img/img_profile.png)
+![экран профиль](readme/small/img_profile.png)
 
 ### Экран редактировать профиль
 
-![экран редактировать профиль](readme_img/img_edit.png)
+![экран редактировать профиль](readme/small/img_edit.png)
 
 ### Экран описание программы
 
-![экран описание программы](readme_img/img_about.png)
+![экран описание программы](readme/small/img_about.png)
 
 ### Экран qr код
 
-![экран qr код](readme_img/img_qrcode.png)
+![экран qr код](readme/small/img_qrcode.png)
 
 ### Демонстрация работы
 
-![демонстрация работы](readme_img/img_tour.gif)
+![демонстрация работы](readme/img_tour.gif)
 
 ----
 
