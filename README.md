@@ -1,16 +1,57 @@
-# loyalty_program_app
+# Программа лояльности
 
-test task loyalty program
+## Тестовое задание
 
-## Getting Started
+Имитируем мобильное приложение для системы управления лояльностью.
+Данные берем из головы:)
 
-This project is a starting point for a Flutter application.
+- Рега/логин без бэка просто по логопассу (писать во внутреннюю базу)
+- Экран кабинета - просто название программы лояльности (ПЛ), баллы, и история покупок инфинит скроллом. 
+- Экран с qr - выводит qr картинку попапом
+- Экран с деталями по ПЛ выводится при клике на название ПЛ на других экранах
+- Экран профиля
 
-A few resources to get you started if this is your first Flutter project:
+-----------
+## Что получилось
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Буду благодарна за ревью 🤗
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Экран регистрации
+
+![экран регистрации](readme_img/img_reg.png)
+
+### Экран входа
+
+![экран входа](readme_img/img_enter.png)
+
+### Экран кабинет
+
+![экран кабинет](readme_img/img_cabinet.png)
+
+### Экран профиль
+
+![экран профиль](readme_img/img_profile.png)
+
+### Экран редактировать профиль
+
+![экран редактировать профиль](readme_img/img_edit.png)
+
+### Экран описание программы
+
+![экран описание программы](readme_img/img_about.png)
+
+### Экран qr код
+
+![экран qr код](readme_img/img_qrcode.png)
+
+### Демонстрация работы
+
+![демонстрация работы](readme_img/img_tour.gif)
+
+----
+
+## Контакты
+
+[![ВКонтакте](https://img.shields.io/badge/-ВКонтакте-lightblue?style=for-the-badge&logo=vk)](https://vk.com/internetova)
+[![Telegram](https://img.shields.io/badge/-Telegram-lightblue?style=for-the-badge&logo=telegram&logoColor=44D1FC)](https://t.me/internetova)
+[![Веб-сайт](https://img.shields.io/badge/-Сайт-lightblue?style=for-the-badge&logo=safari&logoColor=054F8C)](http://internetova.ru)
