@@ -146,7 +146,7 @@ class _BuildUserInfo extends StatelessWidget {
     final String _phone = user.phone != null ? user.phone! : '-';
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+      margin: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
